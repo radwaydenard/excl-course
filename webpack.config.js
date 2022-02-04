@@ -1,13 +1,28 @@
 const path = require('path')
-const HtmlWebpackPlugin = require('html-webpack-plugin');
-const CopyPlugin = require("copy-webpack-plugin");
-const { CleanWebpackPlugin } = require('clean-webpack-plugin');
-const MiniCssExtractPlugin = require("mini-css-extract-plugin");
+const HtmlWebpackPlugin = require('html-webpack-plugin')
+const CopyPlugin = require('copy-webpack-plugin')
+const {CleanWebpackPlugin} = require('clean-webpack-plugin')
+const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 
 const isProd = process.env.NODE_ENV === 'production'
 const isDev = !isProd
 
 const filename = ext => isDev ? `bundle.${ext}` : `bundle.[hash].${ext}`
+
+const jsLoaders = () => {
+    const loaders = [
+        {
+            loader: 'babel-loader',
+            options: {
+                presets: ['@babel/preset-env']
+            }
+    }
+    ]
+    if (isDev) {
+        loaders.push('eslint-loader')
+    }
+    return loaders
+}
 
 module.exports = {
     context: path.resolve(__dirname, 'src'),
@@ -26,13 +41,13 @@ module.exports = {
     },
     devtool: isDev ? 'source-map' : false,
     devServer: {
-        port:3000,
-        hot:isDev,
+        port: 3000,
+        hot: isDev,
     },
     plugins: [
         new CleanWebpackPlugin(),
         new HtmlWebpackPlugin({
-            template: "index.html",
+            template: 'index.html',
             minify: {
                 removeComments: isProd,
                 collapseWhitespace: isProd,
@@ -56,20 +71,15 @@ module.exports = {
                 test: /\.s[ac]ss$/i,
                 use: [
                     MiniCssExtractPlugin.loader,
-                    "css-loader",
-                    "sass-loader",
+                    'css-loader',
+                    'sass-loader',
                 ],
             },
             {
                 test: /\.m?js$/,
                 exclude: /node_modules/,
-                use: {
-                    loader: "babel-loader",
-                    options: {
-                        presets: ['@babel/preset-env']
-                    }
-                }
-            },
-        ],
+                use: jsLoaders()
+            }
+        ]
     }
 }
