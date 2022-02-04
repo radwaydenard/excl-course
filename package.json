@@ -1,0 +1,33 @@
+{
+  "name": "excl-course",
+  "version": "1.0.0",
+  "description": "JS EXCL Course",
+  "main": "webpack.config.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "webpack",
+    "build": "webpack --mode production"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/radwaydenard/excl-course.git"
+  },
+  "keywords": [
+    "js",
+    "course"
+  ],
+  "author": "Anton Zotau <radwaydenard@yahoo.com>",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/radwaydenard/excl-course/issues"
+  },
+  "homepage": "https://github.com/radwaydenard/excl-course#readme",
+  "devDependencies": {
+    "clean-webpack-plugin": "^4.0.0",
+    "copy-webpack-plugin": "^10.2.4",
+    "html-webpack-plugin": "^5.5.0",
+    "mini-css-extract-plugin": "^2.5.3",
+    "webpack": "^5.68.0",
+    "webpack-cli": "^4.9.2"
+  }
+}
